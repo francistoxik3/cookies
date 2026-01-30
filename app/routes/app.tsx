@@ -19,7 +19,7 @@ export default function App() {
     <AppProvider embedded apiKey={apiKey}>
       <s-app-nav>
         <s-link href="/app">Home</s-link>
-        <s-link href="/app/cookies">Cookies</s-link>
+        <s-link href="/app/consent-banner">Bannières de cookies</s-link>
         <s-link href="/app/additional">Additional page</s-link>
         <s-link href="/app/settings">Settings</s-link>
       </s-app-nav>
@@ -36,3 +36,4 @@ export function ErrorBoundary() {
 export const headers: HeadersFunction = (headersArgs) => {
   return boundary.headers(headersArgs);
 };
+
