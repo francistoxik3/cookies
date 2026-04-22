@@ -1,0 +1,56 @@
+{% comment %} blocks/cookie_banner.liquid {% endcomment %}
+
+<div id="cookie-banner" style="
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 24px;
+  max-width: 480px;
+  width: 90%;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  z-index: 9999;
+  font-family: sans-serif;
+">
+  <p style="margin: 0 0 16px;">
+    🍪 {{ 'cookie_banner.message' | t }}
+  </p>
+  <div style="display: flex; gap: 12px;">
+    <button id="cookie-accept" style="
+      background: #000; color: #fff;
+      border: none; padding: 10px 20px;
+      border-radius: 4px; cursor: pointer;
+    ">{{ 'cookie_banner.accept' | t }}</button>
+    <button id="cookie-decline" style="
+      background: transparent; color: #000;
+      border: 1px solid #ccc; padding: 10px 20px;
+      border-radius: 4px; cursor: pointer;
+    ">{{ 'cookie_banner.decline' | t }}</button>
+  </div>
+</div>
+
+<script>
+  document.getElementById('cookie-accept').addEventListener('click', function() {
+    document.getElementById('cookie-banner').style.display = 'none';
+    localStorage.setItem('cookie_consent', 'accepted');
+  });
+  document.getElementById('cookie-decline').addEventListener('click', function() {
+    document.getElementById('cookie-banner').style.display = 'none';
+    localStorage.setItem('cookie_consent', 'declined');
+  });
+
+  // Ne pas réafficher si déjà choisi
+  if (localStorage.getItem('cookie_consent')) {
+    document.getElementById('cookie-banner').style.display = 'none';
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Cookie Banner",
+  "target": "body"
+}
+{% endschema %}

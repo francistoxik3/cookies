@@ -1,4 +1,15 @@
+'use client'; // if you're in Next.js app router
+import {useState, useCallback} from 'react';
+
+
 export default function CookiesPage() {
+  const [enabled, setEnabled] = useState(false);
+  const handleChange = useCallback((event: any) => {
+    // For a custom element like <s-switch>,
+    // the checked value is usually on event.currentTarget.checked
+    const isChecked = (event.currentTarget as any).checked;
+    setEnabled(isChecked);
+  }, []);
   return(
     <s-page heading="Configuration de la bannière">
       <s-section>
@@ -14,8 +25,10 @@ export default function CookiesPage() {
         <s-heading>Commencer à configurer votre bannière de cookies</s-heading><br />
         <s-paragraph>Bienvenue sur la page de configuration de votre bannière de cookies, vous pouvez également customiser votre bannière.</s-paragraph><br />
         <s-switch
-          label="Activer cookies"
-          details="Activer/Désactiver la bannière"
+          checked={enabled}
+          label={enabled ? 'Cookies activé' : 'Cookies désactivé'}
+          details={enabled ? 'Bannière de cookies activé' : 'Bannière de cookies désactivé'}
+          onChange={handleChange}
         />
         </s-grid>
       </s-section>
